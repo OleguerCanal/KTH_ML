@@ -1,0 +1,113 @@
+# 0
+MONK3 because of the misclassification and harder rule
+
+# 1
+('MONK 1:', 1.0)
+('MONK 2:', 0.957117428264771)
+('MONK 3:', 0.9998061328047111)
+
+# 2
+In the case of 2 possible outcomes (true, false)
+the highest entropy is 1, which is given when there are
+50% of true and 50% of falses, meaning uniform entropy.
+With a different proportion (non-uniform probability)
+there is more certainty and thus a lower entropy.
+
+# 3
+('Monk:', 1)
+A1: 0.0752725556083
+A2: 0.00583842996291
+A3: 0.0047075666173
+A4: 0.0263116965077
+A5: 0.287030749716
+A6: 0.000757855715864
+('Monk:', 2)
+A1: 0.00375617737751
+A2: 0.00245849866608
+A3: 0.00105614771589
+A4: 0.0156642472926
+A5: 0.0172771769379
+A6: 0.00624762223688
+('Monk:', 3)
+A1: 0.00712086839607
+A2: 0.293736173508
+A3: 0.000831114044534
+A4: 0.00289181728865
+A5: 0.25591172462
+A6: 0.0070770260741
+
+# 4
+('Monk:', 1)
+Best attribute: A5
+Entropy 1: 0.0
+Entropy 2: 0.938315352233
+Entropy 3: 0.948078243594
+Entropy 4: 0.9081783473
+('Monk:', 2)
+Best attribute: A5
+Entropy 1: 0.910348062435
+Entropy 2: 1.0
+Entropy 3: 0.963335545673
+Entropy 4: 0.877962001394
+('Monk:', 3)
+Best attribute: A2
+Entropy 1: 0.918295834054
+Entropy 2: 0.829607103088
+Entropy 3: 0.377646321374
+
+Entropy of S1 = 0 since they are all true (no uncertainty)
+How can we motivate using the information gain as a heuristic for
+picking an attribute for splitting?
+Maybe choose the most uncertain to split first¿¿¿
+Maybe split all of them by the hishest atribute gain of them all¿¿¿¿¿
+
+# BETWEEN 4-5
+A5 = 1
+  A1=1: True
+  A1=2: True
+  A1=3: True
+A5 = 2
+  A4=1: False
+  A4=2: False
+  A4=3: False
+A5 = 3
+  A6=1: False
+  A6=2: False
+A5 = 4
+  A1=1: False
+  A1=2: False
+  A1=3: True
+
+# 5
+Train E: 1.0
+Test E: 0.828703703704
+Monk:2
+Train E: 1.0
+Test E: 0.69212962963
+Monk:3
+Train E: 1.0
+Test E: 0.944444444444
+
+Hardest to generalize was Monk 2
+?????
+We are overfitting to the train (no error)
+
+
+# 6
+Val E: 0.38
+Val E: 0.86
+Val E: 0.88
+Val E: 0.9
+Val E: 0.86
+Val E: 0.88
+Val E: 0.88
+Val E: 0.92
+Val E: 0.8
+Val E: 0.92
+Val E: 0.9
+Val E: 0.82
+
+In decision trees variance = f(depth)
+Prunning reduces variance since it simplifies the model
+If we prune too much we may rise the biass due to oversimplification
+
