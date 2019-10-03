@@ -43,26 +43,25 @@ class SVM():
         return 0.5*np.dot(np.dot(np.transpose(alpha), self.P), alpha) - np.sum(alpha)
 
     def __zerofun(self, alpha):
-        return np.dot(alpha, self.targets)
+        return np.dot(np.transpose(alpha), self.targets)
 
     # AFTER MINIMIZATION
     def __compute_b(self):
-        x_s = (0, 0)
-        t_s = 0
+        support_vector = self.non_zero_vals[0][1]
+        t_support = self.non_zero_vals[0][2]
         for alpha, x, t in self.non_zero_vals:
-            if alpha <= self.C:
-                x_s = x
-                t_s = t
-                break
+            if alpha < self.C:
+                t_support = t
+                support_vector = x
 
-        if t_s == 0:
+        if t_support == 0:
             print("ERROR: Couldn't find alpha < C")
             return 0
 
-        result = 0
+        b_result = 0
         for alpha, x, t in self.non_zero_vals:
-            result += alpha*t*self.__kernel(x_s, x)
-        return result - t_s
+            b_result += alpha*t*self.__kernel(support_vector, x)
+        return b_result - t_support
 
     # PUBLIC:
     def train(self, classA, classB):
@@ -98,10 +97,10 @@ class SVM():
         # Compute b
         self.b = self.__compute_b()
 
-    def indicator(self, point_to_evaluate):
+    def indicator(self, point):
         sumation = 0
         for alpha, x, t in self.non_zero_vals:
-            sumation += alpha*t*self.__kernel(point_to_evaluate, x)
+            sumation += alpha*t*self.__kernel(point, x)
         return sumation - self.b
 
     def plot(self, classA, classB):
@@ -130,6 +129,6 @@ if __name__ == "__main__":
     classB = np.array([(-1, -1)])
 
     svm = SVM(C = 1, kernel = "linear", kernel_param = 0)
-    # svm = SVM(C = 100, kernel = "poly", kernel_param = 3)
+    # svm = SVM(C = 1, kernel = "poly", kernel_param = 3)
     svm.train(classA, classB)
     svm.plot(classA, classB)
