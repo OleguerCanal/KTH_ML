@@ -73,7 +73,7 @@ class SVM():
         self.inputs = inputs[permute, : ]  # Training values
         self.targets = targets[permute]  # Training labels
 
-        self.P = self.__compute_P_mat(targets, inputs)
+        self.P = self.__compute_P_mat(self.targets, self.inputs)
         alpha_0 = np.zeros(self.n_train)
         bounds = [(0, self.C) for b in range(self.n_train)]
         constraint = {'type':'eq', 'fun':self.__zerofun}
@@ -123,12 +123,12 @@ class SVM():
 
 if __name__ == "__main__":
     # Create dataset
-    # classA = np.concatenate((np.random.randn(10, 2) * 0.2 + [1.5, 0.5], np.random.randn(10, 2) * 0.2 + [-1.5, 0.5]))  # Randoms from around 0.5 to 1.5 and -1.5 to 0.5
-    # classB = np.random.randn(20, 2) * 0.2 + [0.0 , -0.5] # Randoms from -0.5  to 0.0
-    classA = np.array([(1, 1), (1, 2), (2, 1)])
-    classB = np.array([(-1, -1)])
+    classA = np.concatenate((np.random.randn(10, 2) * 0.2 + [1.5, 0.5], np.random.randn(10, 2) * 0.2 + [-1.5, 0.5]))  # Randoms from around 0.5 to 1.5 and -1.5 to 0.5
+    classB = np.random.randn(20, 2) * 0.2 + [0.0 , -0.5] # Randoms from -0.5  to 0.0
+    # classA = np.array([(1, 1), (1, 2), (2, 1)])
+    # classB = np.array([(-1, -1)])
 
-    svm = SVM(C = 1, kernel = "linear", kernel_param = 0)
-    # svm = SVM(C = 1, kernel = "poly", kernel_param = 3)
+    # svm = SVM(C = 1, kernel = "linear", kernel_param = 0)
+    svm = SVM(C = 1, kernel = "poly", kernel_param = 2)
     svm.train(classA, classB)
     svm.plot(classA, classB)
