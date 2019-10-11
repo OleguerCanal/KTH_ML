@@ -4,6 +4,7 @@ from scipy.optimize import minimize
 import matplotlib.pyplot as plt
 
 np.random.seed(1)
+random.seed = 1
 epsilon = 1e-5
 
 class SVM():
@@ -118,17 +119,39 @@ class SVM():
                     linewidths = (1, 3, 1))
 
         plt.axis('equal')           # Force same scale on both axes
-        plt.savefig('svmplot.pdf')  # Save a copy in a file
+        plt.savefig('svmplot.png')  # Save a copy in a file
         plt .show()                 # Show the plot on the screen
 
 if __name__ == "__main__":
     # Create dataset
-    classA = np.concatenate((np.random.randn(10, 2) * 0.2 + [1.5, 0.5], np.random.randn(10, 2) * 0.2 + [-1.5, 0.5]))  # Randoms from around 0.5 to 1.5 and -1.5 to 0.5
-    classB = np.random.randn(20, 2) * 0.2 + [0.0 , -0.5] # Randoms from -0.5  to 0.0
-    # classA = np.array([(1, 1), (1, 2), (2, 1)])
-    # classB = np.array([(-1, -1)])
+    classA = np.concatenate((\
+            # np.random.randn(20, 2) * 0.2 + [-2.0, 0.0],\
+            np.random.randn(20, 2) * 0.2 + [0.0, 2.0],\
+            np.random.randn(20, 2) * 0.2 + [2.0, 0.0]))
+    classB = np.random.randn(20, 2) * 0.2 + [0.0, 0.0]
+    
+    
+    # Question 2:
+    # classA = np.concatenate((\
+    #         np.random.randn(20, 2) * 0.2 + [-2.0, 0.0],\
+    #         np.random.randn(20, 2) * 0.2 + [2.0, 0.0]))
+    # classB = np.concatenate((\
+    #         np.random.randn(20, 2) * 0.2 + [0.0, 2.0],\
+    #         np.random.randn(20, 2) * 0.2 + [0.0, -2.0]))
+    
+    # Question 5:
+    # classA = np.random.randn(30, 2) * 0.2 + [1.5, 0.0]
+    # classA = np.concatenate((classA, np.array([[0.5, 0]])))
+    # classB = np.random.randn(30, 2) * 0.2 + [-1.5, 0.0]
+    # classB = np.concatenate((classB, np.array([[-0.5, 0]])))
+    
+    # classA = np.array([(1, 0)])
+    # classB = np.array([(1, 0)])
 
     # svm = SVM(C = 1, kernel = "linear", kernel_param = 0)
-    svm = SVM(C = 1, kernel = "poly", kernel_param = 2)
+    # svm = SVM(C = 1, kernel = "poly", kernel_param = 2)
+    svm = SVM(C = 10, kernel = "rbf", kernel_param = 3)
     svm.train(classA, classB)
     svm.plot(classA, classB)
+
+    # for rdf lower the sigma the more complex
